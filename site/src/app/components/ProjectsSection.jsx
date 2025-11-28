@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
 import { motion, useInView } from "framer-motion";
+import Image from 'next/image';
 
 const projectsData = [
   {
@@ -11,7 +12,7 @@ const projectsData = [
     description: "A disaster management chatbot designed to help students cook safely and conveniently during typhoons",
     image: "./images/projects/Typhood.png",
     tag: ["All"],
-    gitUrl: "/project2",
+    gitUrl: "#projects",
     previewUrl: "/"
   },
   {
@@ -20,7 +21,7 @@ const projectsData = [
     description: "Make the campus more friendly for visiting students from the aquatic kingdom of Atlantis",
     image: "./images/projects/Atlantis.jpg",
     tag: ["All"],
-    gitUrl: "/project1",
+    gitUrl: "/#projects",
     previewUrl: "/"
   },
   {
@@ -88,7 +89,7 @@ function Project1Content() {
   return (
     <section className="text-white min-h-screen p-8 space-y-10">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold text-teal-200 mb-4">7. Reflection</h2>
+        <h2 className="text-2xl font-semibold text-teal-200 mb-4">Reflection</h2>
         <p className="leading-relaxed mb-4">
           Working on this project provided a creative yet structured opportunity to apply
           human-centered design thinking to an imaginative but instructive context — designing
@@ -148,38 +149,120 @@ function Project1Content() {
 function Project2Content() {
   return (
     <section className="text-white min-h-screen p-8 space-y-10">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-semibold text-teal-200 mb-4">7. Reflection</h2>
-        <p className="leading-relaxed text-gray-200">
-          This project reinforced how crucial empathy is when designing for real-world problems.
-          By understanding the challenges HKUST students face during typhoons — limited food,
-          closed canteens, and scarce cooking tools — we learned that good design begins with
-          genuine user needs, not technological novelty. Observing and interviewing users revealed
-          that many students felt anxious and unprepared, which shaped our goal of creating a
-          chatbot that reduces stress and empowers self-sufficiency.
+      <div className="max-w-3xl mx-auto space-y-6">
+        <h1 className="text-3xl font-bold text-teal-300 mb-6">
+          COMP4461 Project 2: Typhood — Diary Reflection
+        </h1>
+
+        <p className="text-[#E5E7EB] leading-relaxed">
+          This diary reflection have my personal thoughts, contributions, and learnings during the creation
+          of <strong>Typhood</strong> — our disaster management chatbot designed to help HKUST students cook  conveniently during typhoons.
+          Through this project, I gained deeper understanding of user empathy, iterative prototyping, and how to design a tool through user feedback.
         </p>
 
-        <h3 className="text-xl font-semibold text-teal-100 mt-6 mb-2">
-          Balancing Simplicity and Functionality
-        </h3>
-        <p className="leading-relaxed text-gray-200">
-          Throughout the ideation and prototyping phases, we learned that more features do not
-          always mean a better experience. Our early prototypes overwhelmed users with excessive
-          preference settings and options. Through testing and iteration, we simplified the
-          interface, focusing on intuitive conversation and quick recipe suggestions. This process
-          showed that usability improves dramatically when unnecessary complexity is removed.
+        {/* Problem Section */}
+        <h2 className="text-2xl font-semibold text-teal-200">1. Understanding the Problem</h2>
+        <p className="text-[#E5E7EB] leading-relaxed">
+          Our research began by observing how students struggle during typhoons — canteens close, groceries run out,
+          and many students have limited cooking knowledge or access to equipment. I was responsible for analyzing
+          user interviews and identifying recurring pain points like <em>“limited ingredients,” “shared appliances,”</em>
+          and <em>“stress about food safety.”</em> This process taught me that even simple, temporary disruptions like typhoons
+          can expose big gaps in accessibility and preparedness.
         </p>
 
-        <h3 className="text-xl font-semibold text-teal-100 mt-6 mb-2">
-          The Power of Iteration and Feedback
-        </h3>
-        <p className="leading-relaxed text-gray-200">
-          User testing transformed Typhood from a concept into a practical tool. Feedback helped us
-          recognize that clarity and natural interaction were more valuable than advanced
-          configurations. Adding speech input and simplifying setup steps directly addressed user
-          pain points and increased satisfaction. Each cycle of iteration strengthened our
-          understanding of how testing reveals hidden usability issues that even designers might
-          overlook.
+
+        {/* Ideation Section */}
+        <h2 className="text-2xl font-semibold text-teal-200">2. Ideation and Concept Development</h2>
+        <p className="text-[#E5E7EB] leading-relaxed">
+          During brainstorming, our team explored multiple chatbot concepts, such as a shared kitchen availability bot
+          and a smart shopping bot. I contributed the idea of combining recipe suggestions with safety awareness — turning
+          the chatbot into a comforting guide, not just a recipe generator. Through <strong>speed dating</strong> interviews,
+          we quickly learned that students valued immediacy and empathy more than technical depth.
+        </p>
+        <Image
+          src="/images/projects/Mindmap.png"
+          alt="mind map image"
+          width={300}
+          height={300}
+          className="mx-auto mt-4" // Add some margin top
+        />
+        <p className="text-[#E5E7EB] leading-relaxed">
+          I helped design the mind map and early storyboards, ensuring each idea remained grounded in real dorm-life
+          constraints. The storyboards itself are generated by AI to emphasize the idea we had in the group’s and put into a piece of art.
+          This phase reminded me that creativity flourishes when it solves real problems elegantly.
+        </p>
+
+        {/* Prototyping Section */}
+        <h2 className="text-2xl font-semibold text-teal-200">3. Prototyping and Iteration</h2>
+        <p className="text-[#E5E7EB] leading-relaxed">
+          I worked on low-fidelity with sketches and while a group member made high-fidelity prototype to effectively split the job. 
+          My main contribution was refining the chatbot’s conversation flow — reducing unnecessary steps, improving clarity, and testing how users could
+          input ingredients or choose between text and speech. Early users found the UI too complicated, so I helped
+          simplify it by reducing settings and making the interface more visual and intuitive.
+        </p>
+
+        <p>
+          <Image
+            src="/images/projects/Sketch.jpeg"
+            alt="mind map image"
+            width={300}
+            height={300}
+            className="mx-auto mt-4" // Add some margin top
+          />
+          <figcaption className="text-center text-sm text-gray-400 mt-2 mb-8 italic">
+            User research mind map showing pain points and opportunities
+          </figcaption>
+          <Image
+            src="/images/projects/Typhood_bot.png"
+            alt="mind map image"
+            width={450}
+            height={500}
+            className="mx-auto mt-4" // Add some margin top
+          />
+          <figcaption className="text-center text-sm text-gray-400 mt-2 italic">
+            User research mind map showing pain points and opportunities
+          </figcaption>
+        </p>
+        <p className="text-[#E5E7EB] leading-relaxed">
+          I learned how to balance accessibility and aesthetics — minimal design doesn’t mean lacking personality.
+          Adding small touches like an icon and clear prompts made the bot feel more approachable during stressful
+          conditions.
+        </p>
+
+        {/* User Testing Section */}
+        <h2 className="text-2xl font-semibold text-teal-200">4. User Testing and Feedback</h2>
+        <p className="text-[#E5E7EB] leading-relaxed">
+          In user testing, I helped conduct surveys and collect feedback via Google Forms. The insights showed users
+          preferred fewer input options, more visuals, and a voice input feature. 
+          The questions initially were made by the group by brainstorming questions that made sense,
+          but we opted with other questions to make them better. 
+          To make the questions better, we used ai to revised and make it more simple to understand, 
+          where Typhood could understand casual phrases and adapt recipes based on limited dorm appliances.
+        </p>
+        <Image
+          src="/images/projects/Usability_form.png"
+          alt="mind map image"
+          width={450}
+          height={400}
+          className="mx-auto mt-4" // Add some margin top
+        />
+        <p className="text-[#E5E7EB] leading-relaxed">
+          Seeing how students interacted with Typhood helped my belief that design is an ongoing conversation —
+          feedback isn’t just a validation step, it’s part of creation itself.
+        </p>
+
+        {/* Reflection Section */}
+        <h2 className="text-2xl font-semibold text-teal-200">5. Personal Reflection</h2>
+        <p className="text-[#E5E7EB] leading-relaxed">
+          This project taught me how to design a disaster management tool during a typhoon and 
+          I realized that simplicity, efficiency and reliability for the management tool is more important than 
+          a overcomplicated design. Through Typhood, I practiced turning these feedback we got from the users 
+          into practical design decisions which made it look like the Typhood today.
+        </p>
+        <p className="text-[#E5E7EB] leading-relaxed">
+          Personally, I’m proud of my role in simplifying the personalization flow and improving the step-by-step instruction.
+          I learned that great UX doesn’t come from adding features, but from removing unnecessary features that users find annoying 
+          and not often doesn’t use. Our users didn’t want another app — they wanted a fast, simple and reliable chatbot. 
         </p>
       </div>
     </section>
