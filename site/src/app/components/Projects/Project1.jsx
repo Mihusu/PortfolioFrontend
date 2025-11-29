@@ -1,23 +1,13 @@
-'use client'
+"use client";
+import { useState } from "react";
 
-const Project1 = () => {
+export default function Project1Content() {
+  const [showDetails, setShowDetails] = useState(false);
+
   return (
-    <section className="text-white bg-slate-900 min-h-screen p-8 space-y-10 overflow-y-auto">
+    <section className="text-white min-h-screen p-8 space-y-10">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4 text-teal-300">
-          COMP4461 Project 1: Making HKUST More Friendly for Visiting Students from Atlantis
-        </h1>
-
-        <h2 className="text-2xl font-semibold text-teal-200 mt-8 mb-3">1. Introduction</h2>
-        <p className="leading-relaxed">
-          As HKUST welcomes visiting mermaid students from the underwater kingdom of Atlantis,
-          the challenge lies in adapting a land-based campus to their aquatic physiology, social
-          habits, and cultural practices. This document explores user characteristics, obstacles,
-          and imaginative solutions that ensure mermaid students thrive academically, socially,
-          and culturally.
-        </p>
-
-        <h2 className="text-2xl font-semibold text-teal-200 mt-8 mb-3">7. Reflection</h2>
+        <h2 className="text-2xl font-semibold text-teal-200 mb-4">Reflection</h2>
         <p className="leading-relaxed mb-4">
           Working on this project provided a creative yet structured opportunity to apply
           human-centered design thinking to an imaginative but instructive context — designing
@@ -69,9 +59,14 @@ const Project1 = () => {
           whimsical scenario, the design thinking framework — empathize, define, ideate, prototype,
           and test — remains universally applicable.
         </p>
+
+        <button
+          className="mt-4 text-sm font-medium text-teal-200"
+          onClick={() => setShowDetails((prev) => !prev)}
+        >
+          {showDetails ? "Hide Details" : "Show Details"}
+        </button>
       </div>
     </section>
-  )
+  );
 }
-
-export default Project1

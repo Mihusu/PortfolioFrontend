@@ -1,15 +1,14 @@
 "use client";
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { CodeBracketIcon, EyeIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
+import { CodeBracketIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 /** Reusable Modal */
 function Modal({ open, onClose, title, children }) {
   const dialogRef = useRef(null);
   const firstFocusable = useRef(null);
 
-  // Close on ESC
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -17,12 +16,10 @@ function Modal({ open, onClose, title, children }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  // Focus trap + scroll lock
   useEffect(() => {
     if (open) {
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = "hidden";
-      // focus the first focusable control
       firstFocusable.current?.focus();
       return () => {
         document.body.style.overflow = prevOverflow;
@@ -39,19 +36,16 @@ function Modal({ open, onClose, title, children }) {
       aria-labelledby="modal-title"
       className="fixed inset-0 z-[100] flex items-center justify-center"
     >
-      {/* Overlay */}
       <button
         aria-label="Close"
         onClick={onClose}
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
         tabIndex={-1}
       />
-      {/* Panel */}
       <div
         ref={dialogRef}
         className="relative mx-4 max-h-[80vh] w-full max-w-3xl overflow-x-hidden rounded-2xl bg-[#0f0f10] shadow-2xl ring-1 ring-white/10"
       >
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
           <h2 id="modal-title" className="text-lg font-semibold text-white">
             {title}
@@ -65,12 +59,10 @@ function Modal({ open, onClose, title, children }) {
           </button>
         </div>
 
-        {/* Body */}
         <div className="overflow-y-auto px-6 py-5 text-[#E5E7EB]">
           {children}
         </div>
 
-        {/* Footer */}
         <div className="flex justify-end gap-3 border-t border-white/10 px-6 py-4">
           <button
             onClick={onClose}
@@ -84,36 +76,47 @@ function Modal({ open, onClose, title, children }) {
   );
 }
 
-const ProjectCard = ({ imgUrl, title, description, gitUrl, previewContent }) => {
+const ProjectCard = ({ imgUrl, title, description, gitUrl, previewContent, projectHref }) => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  // Navigate to project page when the card (not inner controls) is clicked
+  const handleNavigate = () => {
+    if (projectHref) router.push(projectHref);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleNavigate();
+    }
+  };
 
   return (
-    <div>
+    <div
+      role={projectHref ? "link" : undefined}
+      tabIndex={projectHref ? 0 : undefined}
+      onClick={handleNavigate}
+      onKeyDown={handleKeyDown}
+      className="cursor-pointer"
+      aria-label={title}
+    >
       <div
         className="mt-6 h-52 md:h-72 rounded-t-xl relative group"
         style={{ background: `url(${imgUrl})`, backgroundSize: "cover" }}
       >
         <div className="overlay items-center justify-center absolute top-0 left-0 w-full h-full bg-[#181818] bg-opacity-0 hidden group-hover:flex group-hover:bg-opacity-80 transition-all duration-500 ">
-          {/* GitHub link (unchanged) */}
-          <Link
+          {/* GitHub link — normal anchor, stop propagation so it doesn't trigger card navigation */}
+          <a
             href={gitUrl}
-            className="h-14 w-14 mr-2 border-2 relative rounded-full border-[#ADB7BE] hover:border-white group/link"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="h-14 w-14 mr-2 border-2 relative rounded-full border-[#ADB7BE] hover:border-white flex items-center justify-center"
             aria-label="View code"
           >
-            <CodeBracketIcon className="h-10 w-10 text-[#ADB7BE] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover/link:text-white" />
-          </Link>
-
-          {/* Preview button -> opens modal */}
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="h-14 w-14 border-2 relative rounded-full border-[#ADB7BE] hover:border-white group/link focus:outline-none focus:ring-2 focus:ring-white/40"
-            aria-haspopup="dialog"
-            aria-expanded={open}
-            aria-controls="modal-title"
-          >
-            <EyeIcon className="h-10 w-10 text-[#ADB7BE] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover/link:text-white" />
-          </button>
+            <CodeBracketIcon className="h-10 w-10 text-[#ADB7BE] group-hover/link:text-white" />
+          </a>
         </div>
       </div>
 
@@ -122,7 +125,6 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewContent }) => 
         <p className="text-[#ADB7BE]">{description}</p>
       </div>
 
-      {/* Modal */}
       <Modal open={open} onClose={() => setOpen(false)} title={`${title}`}>
         {previewContent}
       </Modal>
